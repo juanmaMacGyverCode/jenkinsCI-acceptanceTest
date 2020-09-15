@@ -49,7 +49,7 @@ pipeline {
         }
          stage ("Docker build") {
         	 	steps {
-        	 		sh "docker build -t juanmamacgyvercode/calculator ."
+        	 		sh "docker build --privileged -t juanmamacgyvercode/calculator ."
         	 	}
         }
     }
