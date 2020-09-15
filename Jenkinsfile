@@ -3,12 +3,6 @@ pipeline {
     triggers {
         pollSCM('* * * * *')
     }
-    tools {
-        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
-      }
-      environment {
-        DOCKER_CERT_PATH = credentials('juanmamacgyvercode')
-      }
     stages {
         stage("Compile") {
             steps {
@@ -54,14 +48,16 @@ pipeline {
         	 	}
         }
         stage ("Probar si funciona Docker") {
-                	 	steps {
-                	 		sh "docker version"
-                	 	}
+            steps {
+                docker {
+                    sh "docker version"
                 }
+            }
+        }
         stage ("Docker build") {
-        	 	steps {
-        	 		sh "docker build --privileged -t juanmamacgyvercode/calculator ."
-        	 	}
+            steps {
+        	 	sh "docker build --privileged -t juanmamacgyvercode/calculator ."
+        	}
         }
     }
 }
