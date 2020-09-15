@@ -4,7 +4,7 @@ pipeline {
         pollSCM('* * * * *')
     }
     tools {
-        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '19.03'
+        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
       }
       environment {
         DOCKER_CERT_PATH = credentials('juanmamacgyvercode')
