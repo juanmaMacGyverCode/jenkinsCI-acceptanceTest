@@ -48,10 +48,12 @@ pipeline {
         	 	}
         }
         stage ("Probar si funciona Docker") {
-            steps {
+            agent {
                 docker {
                     image 'docker:latest'
                 }
+            }
+            steps {
                 sh "docker version"
             }
         }
