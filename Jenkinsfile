@@ -47,7 +47,12 @@ pipeline {
         	 		sh "./gradlew build"
         	 	}
         }
-         stage ("Docker build") {
+        stage ("Probar si funciona Docker") {
+                	 	steps {
+                	 		sh "docker version"
+                	 	}
+                }
+        stage ("Docker build") {
         	 	steps {
         	 		sh "docker build --privileged -t juanmamacgyvercode/calculator ."
         	 	}
