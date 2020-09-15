@@ -50,8 +50,9 @@ pipeline {
         stage ("Probar si funciona Docker") {
             steps {
                 docker {
-                    sh "docker version"
+                    image 'docker:latest'
                 }
+                sh "docker version"
             }
         }
         stage ("Docker build") {
