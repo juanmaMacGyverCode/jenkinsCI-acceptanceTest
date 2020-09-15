@@ -3,6 +3,12 @@ pipeline {
     triggers {
         pollSCM('* * * * *')
     }
+    tools {
+        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
+      }
+      environment {
+        DOCKER_CERT_PATH = credentials('juanmamacgyvercode')
+      }
     stages {
         stage("Compile") {
             steps {
