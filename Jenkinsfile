@@ -3,11 +3,13 @@ pipeline {
     triggers {
         pollSCM('* * * * *')
     }
+    tools {
+        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' 'docker'
+      }
+      environment {
+        DOCKER_CERT_PATH = credentials('juanmamacgyvercode')
+      }
     stages {
-        stage('Initialize'){
-            def dockerHome = tool 'myDocker'
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }
         stage("Compile") {
             steps {
                 sh "./gradlew compileJava"
@@ -52,14 +54,14 @@ pipeline {
         	 	}
         }
         stage ("Probar si funciona Docker") {
-            steps {
-                sh "docker version"
-            }
-        }
+                	 	steps {
+                	 		sh "docker version"
+                	 	}
+                }
         stage ("Docker build") {
-            steps {
-        	 	sh "docker build --privileged -t juanmamacgyvercode/calculator ."
-        	}
+        	 	steps {
+        	 		sh "docker build --privileged -t juanmamacgyvercode/calculator ."
+        	 	}
         }
     }
 }
