@@ -55,7 +55,6 @@ pipeline {
         }
         stage ("Probar si funciona Docker") {
                 	 	steps {
-                	 	    sh "systemctl start docker"
                 	 		sh "docker version"
                 	 	}
                 }
