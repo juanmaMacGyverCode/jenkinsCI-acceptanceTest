@@ -35,6 +35,13 @@ pipeline {
                 ])
             }
         }
+        stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQubePruebas') {
+                    bat 'gradlew sonarqube'
+                }
+            }
+        }
         stage ("Package") {
         	 	steps {
         	 		bat "gradlew build"
