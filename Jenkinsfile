@@ -47,7 +47,7 @@ pipeline {
         }
         stage ("Docker build") {
         	steps {
-        	 	bat "docker build --privileged -t juanmamacgyvercode/calculator ."
+        	 	bat "docker build -t juanmamacgyvercode/calculator ."
         	}
         }
     }
