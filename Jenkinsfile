@@ -6,7 +6,11 @@ pipeline {
     stages {
         stage("Compile") {
             steps {
-                sh "gradlew compileJava"
+                if (isUnix()) {
+                    sh "gradlew compileJava"
+                } else {
+                    bat "gradlew compileJava"
+                }
             }
         }
         stage("Unit test") {
