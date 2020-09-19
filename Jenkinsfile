@@ -6,28 +6,28 @@ pipeline {
     stages {
         stage("Compile") {
             steps {
-                bat "gradlew compileJava"
+                sh "./gradlew compileJava"
             }
         }
         stage("Unit test") {
             steps {
-                bat "gradlew test"
+                sh "./gradlew test"
             }
         }
         stage("Code coverage") {
             steps {
-        	    bat "gradlew jacocoTestReport"
+        	    sh "./gradlew jacocoTestReport"
         	 	publishHTML (target: [
          	        reportDir: 'build/reports/jacoco/test/html',
          			reportFiles: 'index.html',
          			reportName: 'JacocoReport'
          	    ])
-         		bat "gradlew jacocoTestCoverageVerification"
+         		sh "./gradlew jacocoTestCoverageVerification"
          	}
         }
         stage("Static code analysis") {
             steps {
-                bat "gradlew checkstyleMain"
+                sh "./gradlew checkstyleMain"
                 publishHTML (target: [
                 	reportDir: 'build/reports/checkstyle/',
                 	reportFiles: 'main.html',
@@ -38,23 +38,23 @@ pipeline {
         stage('SonarQube analysis') {
             steps {
                 withSonarQubeEnv('SonarQubePruebas') {
-                    bat 'gradlew sonarqube'
+                    sh './gradlew sonarqube'
                 }
             }
         }
         stage ("Package") {
         	 	steps {
-        	 		bat "gradlew build"
+        	 		sh "./gradlew build"
         	 	}
         }
         stage ("Probar si funciona Docker") {
             steps {
-                bat "docker version"
+                sh "./docker version"
             }
         }
         stage ("Docker build") {
         	steps {
-        	 	bat "docker build -t juanmamacgyvercode/calculator ."
+        	 	sh "./docker build -t juanmamacgyvercode/calculator ."
         	}
         }
     }
