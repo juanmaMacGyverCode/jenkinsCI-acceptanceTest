@@ -49,7 +49,7 @@ pipeline {
         }
         stage ("Probar si funciona Docker") {
             steps {
-                sh "./docker version"
+                docker("version")
             }
         }
         stage ("Docker build") {
