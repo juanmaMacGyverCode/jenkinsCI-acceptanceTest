@@ -1,9 +1,4 @@
 pipeline {
-    environment {
-        registry = "juanmamacgyvercode/calculator"
-        registryCredential = 'dockerhub'
-        dockerImage = ''
-    }
     agent any
     triggers {
         pollSCM('* * * * *')
@@ -59,7 +54,6 @@ pipeline {
         }
         stage ("Docker build") {
             steps {
-                /*dockerImage = docker.build registry + ":$BUILD_NUMBER"*/
                 sh "docker build -t juanmamacgyvercode/calculator ."
             }
         }
@@ -73,16 +67,24 @@ pipeline {
         }
         stage ("Docker push") {
             steps {
-                /*docker.withRegistry('', registryCredential) {
-                    dockerImage.push()
-                }*/
                 sh "docker push juanmamacgyvercode/calculator"
             }
         }
-        /*stage('Cleaning up') {
+        stage ("Deploy to staging") {
             steps {
-                sh "docker rmi $registry:$BUILD_NUMBER"
+                sh "docker run -d --rm -p 8765:8080 --name calculator juanmamacgyvercode/calculator"
             }
-        }*/
+        }
+        stage ("Acceptance test") {
+            steps {
+                sleep 60
+                sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
+            }
+        }
+        post {
+            always {
+                sh "docker stop calculator"
+            }
+        }
     }
 }
