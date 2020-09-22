@@ -1,4 +1,9 @@
 pipeline {
+    environment {
+        registry = "juanmamacgyvercode/calculator"
+        registryCredential = 'dockerhub'
+        dockerImage = ''
+    }
     agent any
     triggers {
         pollSCM('* * * * *')
@@ -54,12 +59,28 @@ pipeline {
         }
         stage ("Docker build") {
             steps {
-                sh "docker build -t juanmamacgyvercode/calculator ."
+                dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                /*sh "docker build -t juanmamacgyvercode/calculator ."*/
             }
         }
+        /*stage ("Docker login") {
+            steps {
+                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub-credentials',
+                                   usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
+                    sh "docker login --username $USERNAME --password $PASSWORD"
+            }
+        }*/
         stage ("Docker push") {
             steps {
-                sh "docker push juanmamacgyvercode/calculator"
+                docker.withRegistry('', registryCredential) {
+                    dockerImage.push()
+                }
+                /*sh "docker push juanmamacgyvercode/calculator"*/
+            }
+        }
+        stage('Cleaning up') {
+            steps {
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
     }
