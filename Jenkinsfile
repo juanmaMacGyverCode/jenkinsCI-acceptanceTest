@@ -75,16 +75,22 @@ pipeline {
                 sh "docker run -d --rm -p 8765:8080 --name calculatorStaging juanmamacgyvercode/calculator"
             }
         }
+        stage ("Prueba") {
+                    steps {
+                        sleep 60
+                        sh "curl 'localhost:8765/sum?a=1&b=2'"
+                    }
+                }
         stage ("Acceptance test") {
             steps {
                 sleep 60
                 sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
             }
-            post {
+            /*post {
                 always {
                     sh "docker stop calculatorStaging"
                 }
-            }
+            }*/
         }
     }
 }
