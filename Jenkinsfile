@@ -43,19 +43,14 @@ pipeline {
             }
         }
         stage ("Package") {
-        	 	steps {
-        	 		sh "./gradlew build"
-        	 	}
+            steps {
+        	    sh "./gradlew build"
+        	}
         }
         stage ("Probar si funciona Docker") {
             steps {
-                docker("version")
+                sh "docker version"
             }
-        }
-        stage ("Docker build") {
-        	steps {
-        	 	sh "./docker build -t juanmamacgyvercode/calculator ."
-        	}
         }
     }
 }
