@@ -14,7 +14,7 @@ pipeline {
                 sh "./gradlew test"
             }
         }
-        stage("Code coverage") {
+        /*stage("Code coverage") {
             steps {
         	    sh "./gradlew jacocoTestReport"
         	 	publishHTML (target: [
@@ -41,7 +41,7 @@ pipeline {
                     sh './gradlew sonarqube'
                 }
             }
-        }
+        }*/
         stage ("Package") {
             steps {
         	    sh "./gradlew build"
