@@ -80,11 +80,11 @@ pipeline {
                 sleep 60
                 sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
             }
-            post {
+            /*post {
                 always {
                     sh "docker stop calculatorStaging"
                 }
-            }
+            }*/
         }
     }
 }
