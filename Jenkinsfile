@@ -59,7 +59,7 @@ pipeline {
         }
         stage ("Docker build") {
             steps {
-                dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                env.dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 /*sh "docker build -t juanmamacgyvercode/calculator ."*/
             }
         }
