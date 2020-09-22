@@ -52,5 +52,15 @@ pipeline {
                 sh "docker version"
             }
         }
+        stage ("Docker build") {
+            steps {
+                sh "docker build -t juanmamacgyvercode/calculator ."
+            }
+        }
+        stage ("Docker push") {
+            steps {
+                sh "docker push juanmamacgyvercode/calculator"
+            }
+        }
     }
 }
