@@ -52,7 +52,7 @@ pipeline {
                 sh "docker version"
             }
         }
-        stage ("Docker build") {
+        /*stage ("Docker build") {
             steps {
                 sh "docker build -t juanmamacgyvercode/calculator ."
             }
@@ -74,7 +74,7 @@ pipeline {
             steps {
                 sh "docker run -d --rm -p 8765:8080 --name calculatorStaging juanmamacgyvercode/calculator"
             }
-        }
+        }*/
         stage ("Prueba") {
                     steps {
                         sleep 60
