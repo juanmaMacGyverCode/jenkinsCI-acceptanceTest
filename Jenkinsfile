@@ -59,29 +59,29 @@ pipeline {
         }
         stage ("Docker build") {
             steps {
-                env.dockerImage = docker.build registry + ":$BUILD_NUMBER"
-                /*sh "docker build -t juanmamacgyvercode/calculator ."*/
+                /*dockerImage = docker.build registry + ":$BUILD_NUMBER"*/
+                sh "docker build -t juanmamacgyvercode/calculator ."
             }
         }
-        /*stage ("Docker login") {
+        stage ("Docker login") {
             steps {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'docker-hub-credentials',
                                    usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
                     sh "docker login --username $USERNAME --password $PASSWORD"
             }
-        }*/
+        }
         stage ("Docker push") {
             steps {
-                docker.withRegistry('', registryCredential) {
+                /*docker.withRegistry('', registryCredential) {
                     dockerImage.push()
-                }
-                /*sh "docker push juanmamacgyvercode/calculator"*/
+                }*/
+                sh "docker push juanmamacgyvercode/calculator"
             }
         }
-        stage('Cleaning up') {
+        /*stage('Cleaning up') {
             steps {
                 sh "docker rmi $registry:$BUILD_NUMBER"
             }
-        }
+        }*/
     }
 }
