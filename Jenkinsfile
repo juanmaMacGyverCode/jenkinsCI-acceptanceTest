@@ -80,7 +80,7 @@ pipeline {
                         sleep 20
                         //sh "nc -vz localhost"
                         //sh "curl \"www.elpais.com\""
-                        sh "curl -i \"localhost:8765/sum?a=1&b=2\""
+                        sh "curl -i \"192.168.2.89:8765/sum?a=1&b=2\""
                     }
                 }
         /*stage ("Acceptance test") {
