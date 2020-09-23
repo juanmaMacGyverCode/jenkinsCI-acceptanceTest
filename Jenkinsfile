@@ -79,7 +79,8 @@ pipeline {
                     steps {
                         sleep 60
                         //sh "nc -vz localhost"
-                        sh "curl \"localhost:8765/sum?a=1&b=2\""
+                        sh "curl \"www.elpais.com\""
+                        //sh "curl \"localhost:8765/sum?a=1&b=2\""
                     }
                 }
         stage ("Acceptance test") {
