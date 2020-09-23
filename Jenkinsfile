@@ -77,22 +77,22 @@ pipeline {
         }*/
         stage ("Prueba") {
                     steps {
-                        sleep 60
+                        sleep 20
                         //sh "nc -vz localhost"
-                        sh "curl \"www.elpais.com\""
-                        //sh "curl \"localhost:8765/sum?a=1&b=2\""
+                        //sh "curl \"www.elpais.com\""
+                        sh "curl \"localhost:8765/sum?a=1&b=2\""
                     }
                 }
-        stage ("Acceptance test") {
+        /*stage ("Acceptance test") {
             steps {
                 sleep 60
                 sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
-            }
+            }*/
             /*post {
                 always {
                     sh "docker stop calculatorStaging"
                 }
             }*/
-        }
+        /*}*/
     }
 }
