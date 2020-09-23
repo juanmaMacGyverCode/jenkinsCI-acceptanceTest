@@ -78,7 +78,7 @@ pipeline {
         stage ("Prueba") {
                     steps {
                         sleep 60
-                        bat "curl 'localhost:8765/sum?a=1&b=2'"
+                        bat "curl localhost:8765/sum?a=1&b=2"
                     }
                 }
         /*stage ("Acceptance test") {
