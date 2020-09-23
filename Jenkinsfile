@@ -44,53 +44,53 @@ pipeline {
         }*/
         stage ("Package") {
             steps {
-        	    sh "./gradlew build"
+        	    bat "gradlew build"
         	}
         }
         stage ("Probar si funciona Docker") {
             steps {
-                sh "docker version"
+                bat "docker version"
             }
         }
-        /*stage ("Docker build") {
+        stage ("Docker build") {
             steps {
-                sh "docker build -t juanmamacgyvercode/calculator ."
+                bat "docker build -t juanmamacgyvercode/calculator ."
             }
         }
         stage ("Docker login") {
             steps {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub',
                                    usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                    sh "docker login --username $USERNAME --password $PASSWORD"
+                    bat "docker login --username $USERNAME --password $PASSWORD"
                 }
             }
         }
         stage ("Docker push") {
             steps {
-                sh "docker push juanmamacgyvercode/calculator"
+                bat "docker push juanmamacgyvercode/calculator"
             }
         }
         stage ("Deploy to staging") {
             steps {
-                sh "docker run -d --rm -p 8765:8080 --name calculatorStaging juanmamacgyvercode/calculator"
+                bat "docker run -d --rm -p 8765:8080 --name calculatorStaging juanmamacgyvercode/calculator"
             }
-        }*/
+        }
         stage ("Prueba") {
                     steps {
                         sleep 60
-                        sh "curl 'localhost:8765/sum?a=1&b=2'"
+                        bat "curl 'localhost:8765/sum?a=1&b=2'"
                     }
                 }
-        stage ("Acceptance test") {
+        /*stage ("Acceptance test") {
             steps {
                 sleep 60
                 sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
-            }
+            }*/
             /*post {
                 always {
                     sh "docker stop calculatorStaging"
                 }
             }*/
-        }
+        /*}*/
     }
 }
