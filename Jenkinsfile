@@ -52,7 +52,7 @@ pipeline {
                 sh "docker version"
             }
         }
-        /*stage ("Docker build") {
+        stage ("Docker build") {
             steps {
                 sh "docker build -t juanmamacgyvercode/calculator ."
             }
@@ -74,25 +74,25 @@ pipeline {
             steps {
                 sh "docker run -d --rm -p 8765:8080 --name calculatorStaging juanmamacgyvercode/calculator"
             }
-        }*/
-        stage ("Prueba") {
+        }
+        /*stage ("Prueba") {
                     steps {
                         sleep 20
                         //sh "nc -vz localhost"
                         //sh "curl \"www.elpais.com\""
                         sh "curl -i \"192.168.2.89:8765/sum?a=1&b=2\""
                     }
-                }
+                }*/
         stage ("Acceptance test") {
             steps {
                 sleep 60
                 sh "chmod +x acceptance_test.sh && ./acceptance_test.sh"
             }
-            /*post {
+            post {
                 always {
                     sh "docker stop calculatorStaging"
                 }
-            }*/
+            }
         }
     }
 }
