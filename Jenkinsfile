@@ -75,6 +75,7 @@ pipeline {
                 sh "docker run -d --rm -p 8765:8080 --name calculatorStaging juanmamacgyvercode/calculator"
             }
         }
+        // Si quieres que Jenkins haga un rest de aceptación de una repo docker, no uses localhost, usa tu IP.
         /*stage ("Prueba") {
                     steps {
                         sleep 20
